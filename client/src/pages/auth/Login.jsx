@@ -1,35 +1,52 @@
-import React, { useState,useEffect } from 'react';
-import { Avatar, Button, CssBaseline,RadioGroup,Radio ,TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Avatar, Button, CssBaseline, RadioGroup, Radio, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 // import mainImage from '../../assets/mainimage.jpg';
+import store from "../../redux/store"
+import { userLogin } from '../../redux/features/auth/authActions';
+import { toast } from "react-toastify";
 
 const Login = () => {
 
   useEffect(() => {
-   
+
     console.log(import.meta.env.VITE_API_BASE_URL);
-    
+
   }, [])
-  
+
 
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      role: data.get("role"),
-      // selectedRole
-    });
+    const email = data.get('email');
+    const password = data.get('password');
+    const role = data.get('role');
+
+    if (!role || !email || !password) {
+      console.log("enter all fields");
+      console.log(role, email, password);
+      toast.error("Enter All Fields");
+
+    } else {
+
+      console.log({
+        email: data.get('email'),
+        password: data.get('password'),
+        role: data.get("role"),
+        // selectedRole
+      });
+      store.dispatch(userLogin({ email, password, role }))
+      console.log(store.dispatch(userLogin({ email, password, role })));
+    }
   };
 
-  const [selectedRole, setSelectedRole] = useState('donor');
-  const navigate= useNavigate();
+  const [selectedRole, setSelectedRole] = useState('donar');
+  const navigate = useNavigate();
 
 
   const handleRoleChange = (event) => {
@@ -72,15 +89,15 @@ const Login = () => {
               Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }} >
-            <Dabba>
+              <Dabba>
 
-              <RadioGroup aria-label="role" name="role" value={selectedRole} onChange={handleRoleChange}>
-                <FormControlLabel value="donor" control={<Radio />} label="Donor" />
-                <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-                <FormControlLabel value="organisation" control={<Radio />} label="Organisation" />
-                <FormControlLabel value="hospital" control={<Radio />} label="Hospital" />
-              </RadioGroup>
-            </Dabba>
+                <RadioGroup aria-label="role" name="role" value={selectedRole} onChange={handleRoleChange}>
+                  <FormControlLabel value="donar" control={<Radio />} label="Donar" />
+                  <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                  <FormControlLabel value="organisation" control={<Radio />} label="Organisation" />
+                  <FormControlLabel value="hospital" control={<Radio />} label="Hospital" />
+                </RadioGroup>
+              </Dabba>
               <TextField
                 margin="normal"
                 required
@@ -120,7 +137,7 @@ const Login = () => {
                   </Link> */}
                 </Grid>
                 <Grid item>
-                  <RegisterTo  variant="body2" onClick={()=>{navigate("/register")}}>
+                  <RegisterTo variant="body2" onClick={() => { navigate("/register") }}>
                     "Don't have an account? Sign Up"
                   </RegisterTo>
                 </Grid>

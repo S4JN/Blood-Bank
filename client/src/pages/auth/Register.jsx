@@ -6,32 +6,36 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 // import mainImage from '../../assets/mainimage.jpg';
 import axios from "axios";
+import { userRegister } from '../../redux/features/auth/authActions';
+import store from "../../redux/store"
+
 
 const Register = () => {
 
   const [nam, setNam] = useState("");
-  const navigate= useNavigate()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const registerData = {
-      name: data.get("name"),
-      password: data.get('password'),
-      email: data.get('email'),
-      phoneNumber: data.get('phoneNumber'),
-      address: data.get('address'),
-      role: data.get('role'),
-    }
-    console.log(registerData);
+    const name = data.get("name")
+    const email = data.get("email")
+    const password = data.get("password")
+    const phoneNumber = data.get("phoneNumber")
+    const address = data.get("address")
+    const role = data.get("role")
+    console.log(password);
+    if (!email || !password || !name || !phoneNumber || !address) {
+      console.log("enter all fields");
+      toast.error("Enter All Fields");
+    } else {
+      try {
+        store.dispatch(userRegister({ name, password, email, phoneNumber, address, role }))
 
-    try {
-      const { data } = await axios.post("http://localhost:8000/api/v1/auth/register", registerData);
-      console.log(data);
-      navigate("/login")
-    } catch (error) {
-      console.log(error);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
   };

@@ -5,13 +5,15 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 
 import {Home, Login, Register} from "./pages/index.js"
-
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className='App'>
+    <ToastContainer />
       <Routes>
         <Route path='/' element={<Home />} /> 
         <Route path='/login' element={<Login />} /> 
