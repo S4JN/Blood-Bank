@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Avatar, Button, CssBaseline,RadioGroup,Radio ,TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -7,6 +7,15 @@ import { useNavigate } from 'react-router-dom';
 // import mainImage from '../../assets/mainimage.jpg';
 
 const Login = () => {
+
+  useEffect(() => {
+   
+    console.log(import.meta.env.VITE_API_BASE_URL);
+    
+  }, [])
+  
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -92,10 +101,10 @@ const Login = () => {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
