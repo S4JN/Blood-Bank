@@ -7,13 +7,15 @@ import { useNavigate } from 'react-router-dom';
 // import mainImage from '../../assets/mainimage.jpg';
 import axios from "axios";
 import { userRegister } from '../../redux/features/auth/authActions';
-import store from "../../redux/store"
+// import store from "../../redux/store"
+import { useDispatch } from 'react-redux';
 
 
 const Register = () => {
 
   const [nam, setNam] = useState("");
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +33,7 @@ const Register = () => {
       toast.error("Enter All Fields");
     } else {
       try {
-        store.dispatch(userRegister({ name, password, email, phoneNumber, address, role }))
+        dispatch(userRegister({ name, password, email, phoneNumber, address, role }))
 
       } catch (error) {
         console.log(error);

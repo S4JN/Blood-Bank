@@ -5,11 +5,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 // import mainImage from '../../assets/mainimage.jpg';
-import store from "../../redux/store"
+// import store from "../../redux/store"
 import { userLogin } from '../../redux/features/auth/authActions';
 import { toast } from "react-toastify";
+import {useDispatch} from "react-redux"
 
 const Login = () => {
+
+
+
 
   useEffect(() => {
 
@@ -40,14 +44,13 @@ const Login = () => {
         role: data.get("role"),
         // selectedRole
       });
-      store.dispatch(userLogin({ email, password, role }))
-      console.log(store.dispatch(userLogin({ email, password, role })));
+      dispatch(userLogin({ email, password, role }));
     }
   };
 
   const [selectedRole, setSelectedRole] = useState('donar');
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
