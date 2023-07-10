@@ -20,7 +20,7 @@ const ProtectedRoute = ({children}) => {
     }
     useEffect(()=>{
         getUser();
-    })
+    },[])
 
     if (localStorage.getItem('token')) {
         return React.createElement(React.Fragment, null, children);

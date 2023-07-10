@@ -1,5 +1,7 @@
 import React from 'react';
-import { styled } from '@mui/system';
+import styled from '@emotion/styled';
+
+
 import {
     AppBar,
     Toolbar,
@@ -22,19 +24,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Root = styled('div')({
     flexGrow: 1,
-    backgroundColor: "#b31818",
-    color: "black"
+    backgroundColor: 'pink', // Change the background color to pink
+    color: 'black',
 });
 
 const Title = styled(Typography)(({ theme }) => ({
     flexGrow: 1,
     display: 'none',
+    fontSize: '2rem',
     [theme.breakpoints.up('sm')]: {
         display: 'block',
     },
-
-
-
 }));
 
 const MenuButton = styled(IconButton)(({ theme }) => ({
@@ -49,33 +49,22 @@ const DrawerContainer = styled('div')({
 });
 
 const Name = styled(Typography)({
-    paddingLeft: "2%",
-    paddingRight: "2%"
-
-
+    paddingLeft: '2%',
+    paddingRight: '2%',
 });
 
-
-
-
-
 const Header = () => {
-    const { user } = useSelector((state) => state.auth)
-    // const nam= user;
-    // console.log(nam.name);
-    const navigate= useNavigate();
-    const handleLogout=()=>{
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+    const handleLogout = () => {
         localStorage.clear();
-        navigate("/login")
-    }
-    
+        navigate('/login');
+    };
+
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
     const toggleDrawer = (open) => (event) => {
-        if (
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
 
@@ -99,7 +88,6 @@ const Header = () => {
                     <ListItemIcon>
                         <AccountCircleIcon />
                     </ListItemIcon>
-                    {/* <ListItemText primary="Profile" /> */}
                 </ListItem>
             </List>
             <Divider />
@@ -123,11 +111,11 @@ const Header = () => {
                         <BloodtypeIcon />
                     </Title>
                     <Name>
-                    Welcome {user?.name}
-                    {/* <br />
-                    {user?.role} */}
+                        Welcome {user?.name}
                     </Name>
-                    <Button color="inherit" onClick={handleLogout}>Logout</Button>
+                    <Button color="inherit" onClick={handleLogout}>
+                        Logout
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer open={isDrawerOpen} onClose={toggleDrawer(false)}>
